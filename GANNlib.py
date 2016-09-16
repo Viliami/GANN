@@ -1,4 +1,4 @@
-import random, math
+import random, math, copy
 
 class Chromosome:
     def __init__(self, chrom = ""):
@@ -39,6 +39,19 @@ class Chromosome:
             self.chromosome
         chrom.fitness = self.fitnessFunc(self)
         return self.chromosome
+        
+    def mutateFilter(self, mutationRate):
+        chrom = ""
+        for bit in str(self):
+            if(random.random() < mutationRate):
+                if(bit == "0"):
+                    chrom+="1"
+                else:
+                    chrom+="0"
+            else:
+                chrom+=bit
+        self.chromosome = chrom
+        return self.chromosome
     
     def __str__(self):
         return self.chromosome
@@ -65,17 +78,19 @@ class Population:
         return self.population[random.randrange(0,len(self.population)-1)]
         
     def rouletteSelect(self):
+        self.size = len(self.population)
         maxFitness = self.getFittest().fitness
         if(len(self.population) <= 0):
             return None
         elif(len(self.population) == 1 or maxFitness == 0):
             return self.population[0]
         while True:
-            chrom = self.randomChromsome() 
-            if(random.random() < chrom.fitness/maxFitness):
-                return chrom
+            chrom = self.randomChromsome()
+            if(random.random() < chrom.fitnessFunc(chrom)/maxFitness):
+                return copy.deepcopy(chrom)
         
     def getFittest(self):
+        self.size = len(self.population)
         maxFitness = -1
         fittest = None
         for chrom in self.population:
@@ -85,24 +100,28 @@ class Population:
         return fittest
         
     def getAverageFitness(self):
+        self.size = len(self.population)
         fitnessSum = 0
         for chrom in self.population:
             fitnessSum += chrom.fitness
-        return fitnessSum/len(self.population)
+        return fitnessSum/self.size
         
     def evolve(self):
         nextGen = []
         nextGen.append(self.getFittest())
-        for j in range(self.size-self.eliteClones):    
+        for j in range(self.size-self.eliteClones):  
+            c1 = 0
             c1 = self.rouletteSelect()
             if(random.random() < self.crossoverRate):
                 c2 = self.rouletteSelect()
                 c1 = self.crossover(c1, c2)
-            c1 = self.mutationFilter(c1)
-            c1.fitness = c1.fitnessFunc()
+            c1.mutateFilter(self.mutationRate)
+            c1.fitness = c1.fitnessFunc(c1)
             nextGen.append(c1)
+        self.population = nextGen
+        return self.population
             
-    def mutationFilter(self, chromosome): 
+    def mutationFilter(self, chromosome):
         chrom = ""
         for bit in str(chromosome):
             if(random.random() < self.mutationRate):
@@ -112,15 +131,15 @@ class Population:
                     chrom+="0"
             else:
                 chrom+=bit
-        return Chromosome(chrom)
+        chromosome.chromosome = chrom
+        return chromosome
         
-    def crossover(self, chrom1, chrom2):    
+    def crossover(self, chrom1, chrom2):
         gene1 = chrom1.chromosome
         gene2 = chrom2.chromosome
         splitIndex = random.randrange(1,len(gene1)-2)
         gene = gene1[:splitIndex]+gene2[splitIndex:]
-        return Chromosome(gene)
-        
-def fitnessFunc(self):
-    print(self.getGene("rad"))
-    return self.getGene("rad")
+        temp = copy.deepcopy(chrom1)
+        temp.chromosome = gene
+        temp.fitness = temp.fitnessFunc(temp)
+        return temp
