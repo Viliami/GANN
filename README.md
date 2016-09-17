@@ -2,7 +2,8 @@
 GANNlib is a simple Genetic Algorithms and Neural Network library, that provides an easy to use interface for creating GAs and NNs quickly.
 
 ##Genetic Algorithms Example
-Create genetic algorithms quickly and easily, here is an example of the GANNlib using 18 lines
+Create genetic algorithms quickly and easily, here is an example of the GANNlib using 18 lines. 
+It currently uses roulette selection (a.k.a fitness proportionate selection) for a selection method and single point crossover as the crossover method. More crossover and selection methods will be added soon.
 ###Code
 ```python
 from GANNlib import *
