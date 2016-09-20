@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "GANNlib.h"
-#include <SDL.h>
 #include <string>
+#include "GANNlib.h"
 
 Chromosome::Chromosome(){
     this->fitness = 0;
