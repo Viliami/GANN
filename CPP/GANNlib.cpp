@@ -1,8 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <string>
 #include "GANNlib.h"
+#include <string>
+#include <random>
+#include <chrono>
+#include <sstream>
+
+unsigned int GANNlib_random_seed = std::chrono::system_clock::now().time_since_epoch().count();
+std::random_device GANNlib_random_device;
+std::mt19937 GANNlib_random_generator(GANNlib_random_seed);
+
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
+
+int randomNumber(int from, int to){
+    std::uniform_real_distribution<> distr(from, to);
+    return distr(GANNlib_random_generator);
+}
 
 Chromosome::Chromosome(){
     this->fitness = 0;
@@ -49,12 +71,8 @@ int Chromosome::getGene(std::string geneName){
 }
 
 std::string Chromosome::generate(){
-    if(this->length > 0){
-        this->
+    for(int i = 0; i < this->length; i++){
+        this->chrom+=patch::to_string(randomNumber(0,2));
     }
-}
-
-int main(int argc, char** argv){
-    std::cout << "ayy lmao" << std::endl;
-    return 0;
+    return "0";
 }
