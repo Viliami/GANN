@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include "GANNlib.h"
 #include <string>
@@ -24,6 +25,10 @@ namespace patch
 int randomNumber(int from, int to){
     std::uniform_real_distribution<> distr(from, to);
     return distr(GANNlib_random_generator);
+}
+
+float randomFloat(){
+    return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 }
 
 Chromosome::Chromosome(){
@@ -71,8 +76,29 @@ int Chromosome::getGene(std::string geneName){
 }
 
 std::string Chromosome::generate(){
+    this->chrom = "";
     for(int i = 0; i < this->length; i++){
         this->chrom+=patch::to_string(randomNumber(0,2));
     }
-    return "0";
+    this->fitness = this->fitnessFunc();
+    return this->chrom;
+}
+
+std::string Chromosome::mutateFilter(float mutationRate){
+    std::string chrom = "";
+    for(int i = 0; i < this->chrom.length(); i++){
+        char
+        bit = this->chrom[i];
+        if(randomFloat() < mutationRate){
+            if(bit == '0'){
+                chrom+='1';
+            }else{
+                chrom+='0';
+            }
+        }else{
+            chrom+=bit;
+        }
+    }
+    this->chrom = chrom;
+    return this->chrom;
 }
