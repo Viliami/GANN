@@ -13,14 +13,14 @@ class Chromosome{
 public:
     std::string chrom;
     int length;
-    int fitness;
+    float fitness;
     std::map<std::string, std::string> genes;
     Chromosome();
     Chromosome(std::string chrom);
     ~Chromosome();
     bool addGene(std::string geneName, int geneBits);
     bool removeGene(std::string geneName);
-    float fitnessFunc();
+    float (*fitnessFunc)();
     int getGene(std::string geneName);
     std::string generate();
     std::string mutateFilter(float mutationRate);
@@ -31,14 +31,14 @@ private:
 
 class Population{
 public:
-    Population();
+    Population(int size, Chromosome chromType);
     ~Population();
     std::vector<Chromosome> population;
     int mutationRate;
     int crossoverRate;
     int size;
-    int chromType;
     int eliteClones;
+    Chromosome chromType;
 
     Chromosome randomChromosome(); //randomly select individual
     Chromosome rouletteSelect(); //randomly select individual with chances proportional to fitness
