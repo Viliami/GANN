@@ -1,11 +1,11 @@
 # GANN
 GANNlib is a simple Genetic Algorithms and Neural Network library, that provides an easy to use interface for creating GAs and NNs quickly.
 
-##Genetic Algorithms Example
+## Genetic Algorithms Example
 Create genetic algorithms quickly and easily, here is an example of the GANNlib using 18 lines.
 
 It currently uses roulette selection (a.k.a fitness proportionate selection) for a selection method and single point crossover as the crossover method. More crossover and selection methods will be added soon.
-###Python Code Example
+### Python Code Example
 ```python
 from GANNlib import *
 
@@ -26,7 +26,7 @@ for i in range(100):                              #evolve for 100 generations
 print("Fittest: "+str(pop.getFittest().fitness))  #print the fittest chromosome again at the end
 print("Average: "+str(pop.getAverageFitness()))   #..and also print the average again
 ```
-###Example output
+### Example output
 ```
 Fittest: 433
 Average: 197.05
@@ -35,5 +35,5 @@ Average: 499.0
 ```
 511 is the max limit to the x gene since it's a 9 bit gene. (2^9-1)
 
-#Neural networks
+# Neural networks
 In progress...
