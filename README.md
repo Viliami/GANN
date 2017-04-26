@@ -13,7 +13,7 @@ def fitnessFunc(self):
     return self.getGene("x")                      #simply returns the 'x' gene for the fitness function, x will be maximised
 
 chrom = Chromosome()
-chrom.addGene("x", 9)                            #adds a gene 'x' to the chromosome that is 9 bits in size
+chrom.addGene("x", 9)                             #adds a gene 'x' to the chromosome that is 9 bits in size
 chrom.fitnessFunc = fitnessFunc                   #use custom fitness function
 pop = Population(20, chrom)                       #create population of 20 of the chrom chromosomes, randomly generated
 
