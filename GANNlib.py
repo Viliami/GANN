@@ -37,7 +37,7 @@ class Chromosome:
             self.chromosome = ("{0:0"+str(self.length)+"b}").format(random.getrandbits(self.length))
         else:
             self.chromosome
-        chrom.fitness = self.fitnessFunc(self)
+        self.fitness = self.fitnessFunc(self)
         return self.chromosome
         
     def mutateFilter(self, mutationRate):
