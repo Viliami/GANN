@@ -33,7 +33,7 @@ Average: 197.05
 Fittest: 511
 Average: 499.0
 ```
-511 is the max limit to the x gene since it's a 9 bit gene. (2^9-1)
+511 is the max for the x gene since it's a 9 bit gene. (2^9-1)
 
 # Neural networks
 In progress...
