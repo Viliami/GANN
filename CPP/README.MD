@@ -1,7 +1,10 @@
-#An Example
-The following code is a minimal example of a simple genetic algorithm that maximizes the 'x' gene, a 9 bit gene, the max fitness of a 9 bit gene is 511.((2^9)-1)
+# An Example
+The following code is a minimal example of a simple genetic algorithm that maximizes the binary encoded 'x' gene. The fitness function is `f(x) = x`, hence the max fitness of a 9 bit gene is 511.
+```
+2^9 - 1 = 511
+```
 
-##Code
+## Code
 ```C++
 float Chromosome::fitnessFunc(){
   //replace this function with your custom fitness code
@@ -21,7 +24,9 @@ int main(int argc, char** argv){
 }
 ```
 
-##Output
+## Output 
+Fittest: best x gene fitness value out of current population
+Average: average x gene fitness value out of current population
 ```
 Fittest: 491
 Average: 306.44
